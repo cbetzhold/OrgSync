@@ -28,6 +28,7 @@ namespace OrgSync
         {
             string outputText = "";
             var requestType = input.GetRequestType();
+            var intent = input.Request as IntentRequest;
 
             if (requestType == typeof(LaunchRequest))
             {
@@ -37,7 +38,7 @@ namespace OrgSync
             else if (requestType == typeof(IntentRequest))
             {
                 //outputText += "Request type is Intent";
-                var intent = input.Request as IntentRequest;
+                
             }
             else
             {
@@ -45,45 +46,70 @@ namespace OrgSync
             }
 
             if (intent.Intent.Name.Equals("OrgSyncIntent"))
-                {
-                   // var firstName = intent.Intent.Slots["firstName"].Value;
-                    //slots
+            {
+                // var firstName = intent.Intent.Slots["firstName"].Value;
+                //slots
 
-                    //if (lastName == null)
-                    //{
-                    //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
-                    //}
+                //if (lastName == null)
+                //{
+                //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
+                //}
 
-                    //else if (firstName == null)
-                    //{
-                    //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
-                    //}
+                //else if (firstName == null)
+                //{
+                //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
+                //}
 
-                    //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
-                    //{
-                    //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
-                    //}
+                //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
+                //{
+                //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
+                //}
 
-                    return BodyResponse(outputText, true);
-                }
+                return BodyResponse(outputText, true);
+            }
 
-                else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
-                {
+            else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
+            {
 
-                    return BodyResponse("You have now exited the Connect to OrgSync Skill", true);
-                }
+                return BodyResponse("You have now exited the Connect to OrgSync Skill", true);
+            }
 
-                else
-                {
-                    return BodyResponse("I did not understand this intent, please try again", true);
-                }
+            else
+            {
+                return BodyResponse("I did not understand this intent, please try again", true);
+            }
         }
 
+        private SkillResponse BodyResponse(string outputSpeech,
+            bool shouldEndSession,
+            string repromptText = "Just say, tell my events to learn more. To exit, say, exit.")
+        {
+            var response = new ResponseBody
+            {
+                ShouldEndSession = shouldEndSession,
+                OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech }
+            };
+
+            if (repromptText != null)
+            {
+                response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptText } };
+            }
+
+            var skillResponse = new SkillResponse
+            {
+                Response = response,
+                Version = "1.0"
+            };
+            return skillResponse;
+        }
+
+        //Change from NBA to Calender
 
 
 
+
+    }
 }
-        }
-    
+
 
 
