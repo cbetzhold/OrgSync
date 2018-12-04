@@ -27,9 +27,7 @@ namespace OrgSync
             public class Function
 {
 private static HttpClient httpClient;
-List<string> date = new List<string>();
-                date.Add(2/04/2018);
-                date.Add(12/4/2018);
+
 public Function()
 {
 httpClient = new HttpClient();
@@ -37,6 +35,7 @@ httpClient = new HttpClient();
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
+                
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -49,7 +48,7 @@ httpClient = new HttpClient();
             else if (requestType == typeof(IntentRequest))
             {
                 //outputText += "Request type is Intent";
-                var intent = input.Request as IntentRequest;
+                var intentName = input.Request as IntentRequest;
                 
             }
             else
@@ -65,7 +64,7 @@ httpClient = new HttpClient();
                 var location = intent.Intent.Slots["location"].Value;
 
                 //slots
-
+                //if (date
                 //if (lastName == null)
                 //{
                 //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
