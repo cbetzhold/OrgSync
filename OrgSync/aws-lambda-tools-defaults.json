@@ -15,7 +15,7 @@
     "function-timeout"     : 30,
     "function-handler"     : "OrgSync::OrgSync.Function::FunctionHandler",
     "function-name"        : "OrgSync",
-    "function-role"        : "arn:aws:iam::245815851213:role/lambda_exec_OrgSync-0",
+    "function-role"        : "arn:aws:iam::245815851213:role/lambda_exec_OrgSync-2",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : ""
 }

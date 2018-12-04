@@ -24,6 +24,15 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
+            public class Function
+{
+private static HttpClient httpClient;
+
+public Function()
+{
+httpClient = new HttpClient();
+}
+
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
             string outputText = "";
@@ -38,6 +47,7 @@ namespace OrgSync
             else if (requestType == typeof(IntentRequest))
             {
                 //outputText += "Request type is Intent";
+                var intent = input.Request as IntentRequest;
                 
             }
             else
@@ -47,7 +57,11 @@ namespace OrgSync
 
             if (intent.Intent.Name.Equals("OrgSyncIntent"))
             {
-                // var firstName = intent.Intent.Slots["firstName"].Value;
+                var date = intent.Intent.Slots["date"].Value;
+                var time = intent.Intent.Slots["time"].Value;
+                var eventtype = intent.Intent.Slots["event"].Value;
+                var location = intent.Intent.Slots["location"].Value;
+
                 //slots
 
                 //if (lastName == null)
@@ -64,6 +78,8 @@ namespace OrgSync
                 //{
                 //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
                 //}
+
+
 
                 return BodyResponse(outputText, true);
             }
@@ -113,3 +129,4 @@ namespace OrgSync
 
 
 
+    }
