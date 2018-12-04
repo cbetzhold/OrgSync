@@ -27,7 +27,9 @@ namespace OrgSync
             public class Function
 {
 private static HttpClient httpClient;
-
+List<string> date = new List<string>();
+                date.Add(2/04/2018);
+                date.Add(12/4/2018);
 public Function()
 {
 httpClient = new HttpClient();
