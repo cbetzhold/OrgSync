@@ -24,11 +24,17 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-           
+            public class Function
+{
+private static HttpClient httpClient;
+
+public Function()
+{
+httpClient = new HttpClient();
+}
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
-                
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -41,7 +47,7 @@ namespace OrgSync
             else if (requestType == typeof(IntentRequest))
             {
                 //outputText += "Request type is Intent";
-                var intentName = input.Request as IntentRequest;
+                var intent = input.Request as IntentRequest;
                 
             }
             else
@@ -57,7 +63,7 @@ namespace OrgSync
                 var location = intent.Intent.Slots["location"].Value;
 
                 //slots
-                //if (date
+
                 //if (lastName == null)
                 //{
                 //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
@@ -123,4 +129,4 @@ namespace OrgSync
 
 
 
-    
+    }
