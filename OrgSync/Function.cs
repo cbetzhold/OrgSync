@@ -24,18 +24,10 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-            public class Function
-{
-private static HttpClient httpClient;
-
-public Function()
-{
-httpClient = new HttpClient();
-}
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
-                
+
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -49,7 +41,7 @@ httpClient = new HttpClient();
             {
                 //outputText += "Request type is Intent";
                 var intentName = input.Request as IntentRequest;
-                
+
             }
             else
             {
@@ -59,10 +51,19 @@ httpClient = new HttpClient();
             if (intent.Intent.Name.Equals("OrgSyncIntent"))
             {
                 var date = intent.Intent.Slots["date"].Value;
-                var time = intent.Intent.Slots["time"].Value;
+                // var time = intent.Intent.Slots["time"].Value;
                 var eventtype = intent.Intent.Slots["event"].Value;
-                var location = intent.Intent.Slots["location"].Value;
+                // var location = intent.Intent.Slots["location"].Value;
 
+                if (date = DateTime.Today)
+                {
+                    return BodyResponse("You have an event today", false);
+                }
+
+                var eventInfo = await GetInfo(date, eventtype);
+                {
+                    outputText = $"You have a {eventtype} on {date}";
+                }
                 //slots
                 //if (date
                 //if (lastName == null)
@@ -122,12 +123,10 @@ httpClient = new HttpClient();
 
         //Change from NBA to Calender
 
+        public class GetInfo(DateTime, string)
+
 
 
 
     }
 }
-
-
-
-    }
