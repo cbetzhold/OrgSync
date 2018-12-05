@@ -24,10 +24,26 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
+            public class Function
+{
+private static HttpClient httpClient;
+Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
+{
+            {1, DateTime.Today}
+            {2, DateTime.Today.AddDays(1)},
+            {3,DateTime.Today.AddDays(2)},
+            {4,DateTime.Today.AddDays(3)},
+            {5,DateTime.Today.AddDays(4)},   
+            {6,DateTime.Today.AddDays(5)},
+            {7,DateTime.Today.AddDays(6)}
+}
+public Function()
+{
+httpClient = new HttpClient();
+}
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
-
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -65,7 +81,7 @@ namespace OrgSync
                     outputText = $"You have a {eventtype} on {date}";
                 }
                 //slots
-                //if (date
+
                 //if (lastName == null)
                 //{
                 //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
@@ -130,3 +146,7 @@ namespace OrgSync
 
     }
 }
+
+
+
+    }
