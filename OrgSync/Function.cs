@@ -24,129 +24,129 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-            public class Function
-{
-private static HttpClient httpClient;
-Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
+        public class Function
+        {
+            private static HttpClient httpClient;
+            Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
 {
             {1, DateTime.Today}
             {2, DateTime.Today.AddDays(1)},
             {3,DateTime.Today.AddDays(2)},
             {4,DateTime.Today.AddDays(3)},
-            {5,DateTime.Today.AddDays(4)},   
+            {5,DateTime.Today.AddDays(4)},
             {6,DateTime.Today.AddDays(5)},
             {7,DateTime.Today.AddDays(6)}
-}
-public Function()
-{
-httpClient = new HttpClient();
-}
+};
 
-        public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
-        {
-            string outputText = "";
-            var requestType = input.GetRequestType();
-            var intent = input.Request as IntentRequest;
 
-            if (requestType == typeof(LaunchRequest))
+            public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
             {
-                return BodyResponse("Welcome to the Connect to OrgSync skill!", false);
-            }
+                string outputText = "";
+                var requestType = input.GetRequestType();
+                var intent = input.Request as IntentRequest;
 
-            else if (requestType == typeof(IntentRequest))
-            {
-                //outputText += "Request type is Intent";
-                var intentName = input.Request as IntentRequest;
-
-            }
-            else
-            {
-                return BodyResponse("I did not understand your request, please try again", true);
-            }
-
-            if (intent.Intent.Name.Equals("OrgSyncIntent"))
-            {
-                var date = intent.Intent.Slots["date"].Value;
-                // var time = intent.Intent.Slots["time"].Value;
-                var eventtype = intent.Intent.Slots["event"].Value;
-                // var location = intent.Intent.Slots["location"].Value;
-
-                if (date = DateTime.Today)
+                if (requestType == typeof(LaunchRequest))
                 {
-                    return BodyResponse("You have an event today", false);
+                    return BodyResponse("Welcome to the Connect to OrgSync skill!", false);
                 }
 
-                var eventInfo = await GetInfo(date, eventtype);
+                else if (requestType == typeof(IntentRequest))
                 {
-                    outputText = $"You have a {eventtype} on {date}";
+                    //outputText += "Request type is Intent";
+                    var intentName = input.Request as IntentRequest;
+
                 }
-                //slots
+                else
+                {
+                    return BodyResponse("I did not understand your request, please try again", true);
+                }
 
-                //if (lastName == null)
-                //{
-                //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
-                //}
+                if (intent.Intent.Name.Equals("OrgSyncIntent"))
+                {
+                    var date = intent.Intent.Slots["date"].Value;
+                    // var time = intent.Intent.Slots["time"].Value;
+                    var eventtype = intent.Intent.Slots["event"].Value;
+                    // var location = intent.Intent.Slots["location"].Value;
 
-                //else if (firstName == null)
-                //{
-                //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
-                //}
+                    if (date = DateTime.Today)
+                    {
+                        return BodyResponse("You have an event today", false);
+                    }
 
-                //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
-                //{
-                //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
-                //}
+                    var eventInfo = await GetInfo(date, eventtype);
+                    {
+                        outputText = $"You have a {eventtype} on {date}";
+                    }
+                    //slots
+
+                    //if (lastName == null)
+                    //{
+                    //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
+                    //}
+
+                    //else if (firstName == null)
+                    //{
+                    //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
+                    //}
+
+                    //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
+                    //{
+                    //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
+                    //}
 
 
 
-                return BodyResponse(outputText, true);
+                    return BodyResponse(outputText, true);
+                }
+
+                else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
+                {
+
+                    return BodyResponse("You have now exited the Connect to OrgSync Skill", true);
+                }
+
+                else
+                {
+                    return BodyResponse("I did not understand this intent, please try again", true);
+                }
             }
 
-            else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
+            private SkillResponse BodyResponse(string outputSpeech,
+                bool shouldEndSession,
+                string repromptText = "Just say, tell my events to learn more. To exit, say, exit.")
             {
+                var response = new ResponseBody
+                {
+                    ShouldEndSession = shouldEndSession,
+                    OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech }
+                };
 
-                return BodyResponse("You have now exited the Connect to OrgSync Skill", true);
+                if (repromptText != null)
+                {
+                    response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptText } };
+                }
+
+                var skillResponse = new SkillResponse
+                {
+                    Response = response,
+                    Version = "1.0"
+                };
+                return skillResponse;
             }
 
-            else
-            {
-                return BodyResponse("I did not understand this intent, please try again", true);
-            }
-        }
+            //Change from NBA to Calender
 
-        private SkillResponse BodyResponse(string outputSpeech,
-            bool shouldEndSession,
-            string repromptText = "Just say, tell my events to learn more. To exit, say, exit.")
-        {
-            var response = new ResponseBody
-            {
-                ShouldEndSession = shouldEndSession,
-                OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech }
-            };
+            public class GetInfo(DateTime, string)
+                {
 
-            if (repromptText != null)
-            {
-                response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptText } };
-            }
-
-            var skillResponse = new SkillResponse
-            {
-                Response = response,
-                Version = "1.0"
-            };
-            return skillResponse;
-        }
-
-        //Change from NBA to Calender
-
-        public class GetInfo(DateTime, string)
+                }
 
 
 
 
-    }
-}
 
 
 
-    }
+
+
+
