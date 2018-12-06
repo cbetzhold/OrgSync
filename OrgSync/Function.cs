@@ -24,12 +24,12 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        
-           // private static HttpClient httpClient;
-            Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
+
+        // private static HttpClient httpClient;
+        Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
 {
-            //{1, DateTime.Today}
-            //{2, DateTime.Today.AddDays(1)},
+            {"MISSA meeting", DateTime.Today},
+            {"Lunch and Learn", DateTime.Today.AddDays(1)},
             //{3,DateTime.Today.AddDays(2)},
             //{4,DateTime.Today.AddDays(3)},
             //{5,DateTime.Today.AddDays(4)},
@@ -153,7 +153,6 @@ namespace OrgSync
             //    {
 
             //    }
-
 
 
 
