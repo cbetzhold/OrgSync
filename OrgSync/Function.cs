@@ -60,14 +60,23 @@ namespace OrgSync
                     return BodyResponse("I did not understand your request, please try again", true);
                 }
 
-                if (intent.Intent.Name.Equals("OrgSyncIntent"))
+            if (intent.Intent.Name.Equals("OrgSyncIntent"))
+            {
+                var date = intent.Intent.Slots["date"].Value;
+
+                var eventtype = intent.Intent.Slots["event"].Value;
+
+
+                if (date == "today")
                 {
-                    var date = intent.Intent.Slots["date"].Value;
-
-                    var eventtype = intent.Intent.Slots["event"].Value;
-
-
-                if (date == "month")
+                    foreach (var Event in Events)
+                    {
+                        if (Event.Value == DateTime.Today)
+                        {
+                            outputText += Event.Key;
+                        }
+                    }
+                }
                 {
                     DateTime dtdate = Convert.ToDateTime(date);
                     int currentM = DateTime.Today.Month;
@@ -75,36 +84,37 @@ namespace OrgSync
 
                     outputText = "You have an event this month";
                 }
-                else
-                {
-                    outputText = "You do not have an event this month";
-                }
-
-                
-
-                    //var eventInfo = await GetInfo(date, eventtype);
-                    //{
-                    //    outputText = $"You have a {eventtype} on {date}";
-                    //}
-                    //slots
-
-                    //if (lastName == null)
-                    //{
-                    //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
-                    //}
-
-                    //else if (firstName == null)
-                    //{
-                    //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
-                    //}
-
-                    //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
-                    //{
-                    //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
-                    //}
+            
+            else
+            {
+                outputText = "You do not have an event this month";
+            }
 
 
 
+            //var eventInfo = await GetInfo(date, eventtype);
+            //{
+            //    outputText = $"You have a {eventtype} on {date}";
+            //}
+            //slots
+
+            //if (lastName == null)
+            //{
+            //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
+            //}
+
+            //else if (firstName == null)
+            //{
+            //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
+            //}
+
+            //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
+            //{
+            //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
+            //}
+
+
+            
                     return BodyResponse(outputText, true);
                 }
 
@@ -143,7 +153,7 @@ namespace OrgSync
                 return skillResponse;
              }
     }
-    }
+}
    
  
 
