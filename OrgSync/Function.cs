@@ -24,18 +24,17 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        public class Function
-        {
-            private static HttpClient httpClient;
+        
+           // private static HttpClient httpClient;
             Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
 {
-            {1, DateTime.Today}
-            {2, DateTime.Today.AddDays(1)},
-            {3,DateTime.Today.AddDays(2)},
-            {4,DateTime.Today.AddDays(3)},
-            {5,DateTime.Today.AddDays(4)},
-            {6,DateTime.Today.AddDays(5)},
-            {7,DateTime.Today.AddDays(6)}
+            //{1, DateTime.Today}
+            //{2, DateTime.Today.AddDays(1)},
+            //{3,DateTime.Today.AddDays(2)},
+            //{4,DateTime.Today.AddDays(3)},
+            //{5,DateTime.Today.AddDays(4)},
+            //{6,DateTime.Today.AddDays(5)},
+            //{7,DateTime.Today.AddDays(6)}
 };
 
 
@@ -64,19 +63,29 @@ namespace OrgSync
                 if (intent.Intent.Name.Equals("OrgSyncIntent"))
                 {
                     var date = intent.Intent.Slots["date"].Value;
-                    // var time = intent.Intent.Slots["time"].Value;
+
                     var eventtype = intent.Intent.Slots["event"].Value;
-                    // var location = intent.Intent.Slots["location"].Value;
 
-                    if (date = DateTime.Today)
-                    {
-                        return BodyResponse("You have an event today", false);
-                    }
 
-                    var eventInfo = await GetInfo(date, eventtype);
-                    {
-                        outputText = $"You have a {eventtype} on {date}";
-                    }
+                if (date == "month")
+                {
+                    DateTime dtdate = Convert.ToDateTime(date);
+                    int currentM = DateTime.Today.Month;
+
+
+                    outputText = "You have an event this month";
+                }
+                else
+                {
+                    outputText = "You do not have an event this month";
+                }
+
+                
+
+                    //var eventInfo = await GetInfo(date, eventtype);
+                    //{
+                    //    outputText = $"You have a {eventtype} on {date}";
+                    //}
                     //slots
 
                     //if (lastName == null)
@@ -132,14 +141,18 @@ namespace OrgSync
                     Version = "1.0"
                 };
                 return skillResponse;
-            }
+             }
+    }
+    }
+   
+ 
 
-            //Change from NBA to Calender
+            
 
-            public class GetInfo(DateTime, string)
-                {
+            //public class GetInfo(DateTime, string)
+            //    {
 
-                }
+            //    }
 
 
 
