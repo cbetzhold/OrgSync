@@ -27,38 +27,38 @@ namespace OrgSync
 
         // private static HttpClient httpClient;
         Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
-{
-            {"MISSA meeting", DateTime.Today},
-            {"Lunch and Learn", DateTime.Today.AddDays(1)},
-            //{3,DateTime.Today.AddDays(2)},
-            //{4,DateTime.Today.AddDays(3)},
-            //{5,DateTime.Today.AddDays(4)},
-            //{6,DateTime.Today.AddDays(5)},
-            //{7,DateTime.Today.AddDays(6)}
-};
+        {
+            {"MIS Lunch and Learn", DateTime.Today},
+            {"Banquet", DateTime.Today.AddDays(1)},
+            {"General Meeting 1",DateTime.Today.AddDays(2)},
+            {"MIS Lunch and Learn 2",DateTime.Today.AddDays(3)},
+            {"General Meeting 3",DateTime.Today.AddDays(4)},
+            {"Lunch and Learn 3",DateTime.Today.AddDays(5)},
+            {"General Meeting 2",DateTime.Today.AddDays(6)}
+        };
 
 
-            public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
+        public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
+        {
+            string outputText = "";
+            var requestType = input.GetRequestType();
+            var intent = input.Request as IntentRequest;
+
+            if (requestType == typeof(LaunchRequest))
             {
-                string outputText = "";
-                var requestType = input.GetRequestType();
-                var intent = input.Request as IntentRequest;
+                return BodyResponse("Welcome to the Connect to OrgSync skill!", false);
+            }
 
-                if (requestType == typeof(LaunchRequest))
-                {
-                    return BodyResponse("Welcome to the Connect to OrgSync skill!", false);
-                }
+            else if (requestType == typeof(IntentRequest))
+            {
+                //outputText += "Request type is Intent";
+                var intentName = input.Request as IntentRequest;
 
-                else if (requestType == typeof(IntentRequest))
-                {
-                    //outputText += "Request type is Intent";
-                    var intentName = input.Request as IntentRequest;
-
-                }
-                else
-                {
-                    return BodyResponse("I did not understand your request, please try again", true);
-                }
+            }
+            else
+            {
+                return BodyResponse("I did not understand your request, please try again", true);
+            }
 
             if (intent.Intent.Name.Equals("OrgSyncIntent"))
             {
@@ -67,102 +67,102 @@ namespace OrgSync
                 var eventtype = intent.Intent.Slots["event"].Value;
 
 
-                if (date == "today")
+
+
+                if (date == DateTime.Today.ToString("yyyy-MM-dd"))
                 {
+                   // string whatsGoingOn = "";
                     foreach (var Event in Events)
                     {
-                        if (Event.Value == DateTime.Today)
+                        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                        if (Event.Value.Date.Equals(DateTime.Today.Date))
                         {
                             outputText += Event.Key;
                         }
                     }
+                  //  outputText = whatsGoingOn;
+
+
+
                 }
-                {
-                    DateTime dtdate = Convert.ToDateTime(date);
-                    int currentM = DateTime.Today.Month;
-
-
-                    outputText = "You have an event this month";
-                }
-            
-            else
-            {
-                outputText = "You do not have an event this month";
-            }
-
-
-
-            //var eventInfo = await GetInfo(date, eventtype);
-            //{
-            //    outputText = $"You have a {eventtype} on {date}";
-            //}
-            //slots
-
-            //if (lastName == null)
-            //{
-            //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
-            //}
-
-            //else if (firstName == null)
-            //{
-            //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
-            //}
-
-            //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
-            //{
-            //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
-            //}
-
-
-            
-                    return BodyResponse(outputText, true);
-                }
-
-                else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
-                {
-
-                    return BodyResponse("You have now exited the Connect to OrgSync Skill", true);
-                }
-
                 else
                 {
-                    return BodyResponse("I did not understand this intent, please try again", true);
+                    outputText = "You do not have an event this month";
                 }
+
+
+
+                //var eventInfo = await GetInfo(date, eventtype);
+                //{
+                //    outputText = $"You have a {eventtype} on {date}";
+                //}
+                //slots
+
+                //if (lastName == null)
+                //{
+                //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
+                //}
+
+                //else if (firstName == null)
+                //{
+                //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
+                //}
+
+                //var playerInfo = await GetPlayerInfo(lastName, firstName, context);
+                //{
+                //    outputText = $"For the 2017-2018 N.B.A. season, {playerInfo.name} plays {playerInfo.minutes_per_game} minutes per game. " + $" He has averaged shooting splits of {playerInfo.field_goal_percentage}%, {playerInfo.three_point_percentage}%, and {playerInfo.free_throw_percentage}%.";
+                //}
+
+
+
+                return BodyResponse(outputText, false);
             }
 
-            private SkillResponse BodyResponse(string outputSpeech,
-                bool shouldEndSession,
-                string repromptText = "Just say, tell my events to learn more. To exit, say, exit.")
+            else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
             {
-                var response = new ResponseBody
-                {
-                    ShouldEndSession = shouldEndSession,
-                    OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech }
-                };
 
-                if (repromptText != null)
-                {
-                    response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptText } };
-                }
+                return BodyResponse("You have now exited the Connect to OrgSync Skill", true);
+            }
 
-                var skillResponse = new SkillResponse
-                {
-                    Response = response,
-                    Version = "1.0"
-                };
-                return skillResponse;
-             }
+            else
+            {
+                return BodyResponse("I did not understand this intent, please try again", true);
+            }
+        }
+
+        private SkillResponse BodyResponse(string outputSpeech,
+            bool shouldEndSession,
+            string repromptText = "Just say, tell my events to learn more. To exit, say, exit.")
+        {
+            var response = new ResponseBody
+            {
+                ShouldEndSession = shouldEndSession,
+                OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech }
+            };
+
+            if (repromptText != null)
+            {
+                response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptText } };
+            }
+
+            var skillResponse = new SkillResponse
+            {
+                Response = response,
+                Version = "1.0"
+            };
+            return skillResponse;
+        }
     }
 }
-   
- 
 
-            
 
-            //public class GetInfo(DateTime, string)
-            //    {
 
-            //    }
+
+
+//public class GetInfo(DateTime, string)
+//    {
+
+//    }
 
 
 
