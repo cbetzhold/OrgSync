@@ -28,13 +28,13 @@ namespace OrgSync
         // private static HttpClient httpClient;
       Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
         {
-            {"MIS Lunch and Learn", DateTime.Today}
-            //{2, DateTime.Today.AddDays(1)},
-            //{3,DateTime.Today.AddDays(2)},
-            //{4,DateTime.Today.AddDays(3)},
-            //{5,DateTime.Today.AddDays(4)},
-            //{6,DateTime.Today.AddDays(5)},
-            //{7,DateTime.Today.AddDays(6)}
+            {"MIS Lunch and Learn", DateTime.Today},
+            {"Banquet", DateTime.Today.AddDays(1)},
+            {"General Meeting 1",DateTime.Today.AddDays(2)},
+            {"MIS Lunch and Learn 2",DateTime.Today.AddDays(3)},
+            {"General Meeting 3",DateTime.Today.AddDays(4)},
+            {"Lunch and Learn 3",DateTime.Today.AddDays(5)},
+            {"General Meeting 2",DateTime.Today.AddDays(6)}
         };
 
 
@@ -78,15 +78,14 @@ namespace OrgSync
                             outputText += Event.Key;
                         }
                     }
-                    DateTime dtdate = Convert.ToDateTime(date);
-                    int currentM = DateTime.Today.Month;
+                    
 
 
-                    outputText = "You have an event this month";
+                    
                 }
                 else
                 {
-                    outputText = "You do not have an event this month";
+                    outputText = "You do not have an event today";
                 }
 
                 
