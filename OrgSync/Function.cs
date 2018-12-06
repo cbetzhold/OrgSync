@@ -26,16 +26,16 @@ namespace OrgSync
 
 
         // private static HttpClient httpClient;
-        Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
-{
-            {"MISSA meeting", DateTime.Today},
-            {"Lunch and Learn", DateTime.Today.AddDays(1)},
+      Dictionary<string, DateTime> Events = new Dictionary<string, DateTime>()
+        {
+            {"MIS Lunch and Learn", DateTime.Today}
+            //{2, DateTime.Today.AddDays(1)},
             //{3,DateTime.Today.AddDays(2)},
             //{4,DateTime.Today.AddDays(3)},
             //{5,DateTime.Today.AddDays(4)},
             //{6,DateTime.Today.AddDays(5)},
             //{7,DateTime.Today.AddDays(6)}
-};
+        };
 
 
             public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
@@ -67,8 +67,17 @@ namespace OrgSync
                     var eventtype = intent.Intent.Slots["event"].Value;
 
 
-                if (date == "month")
+              
+                
+                if (date == "today")
                 {
+                    foreach (var Event in Events)
+                    {
+                        if (Event.Value == DateTime.Today)
+                        {
+                            outputText += Event.Key;
+                        }
+                    }
                     DateTime dtdate = Convert.ToDateTime(date);
                     int currentM = DateTime.Today.Month;
 
