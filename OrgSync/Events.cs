@@ -12,5 +12,17 @@ namespace OrgSync
 
         public DateTime DayTime { get; set; }
 
+        public Events()
+        {
+
+        }
+
+    public Events(string type, string location, DateTime time)
+    {
+        EventType = type;
+        Location = location;
+        DayTime = time;
     }
+    }
+
 }
