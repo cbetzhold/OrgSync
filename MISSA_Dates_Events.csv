@@ -1,24 +1,24 @@
-Dates,Events
-7/17/2019,MISSA Lunch and Learn 1
-3/9/2019,MISSA Lunch and Learn 2
-11/2/2019,MISSA Lunch and Learn 3
-3/30/2019,MISSA Lunch and Learn 4
-12/22/2018,MISSA Lunch and Learn 5
-1/15/2019,MISSA Lunch and Learn 6
-4/19/2019,MISSA Lunch and Learn 7
-8/30/2019,MISSA Lunch and Learn 8
-6/6/2019,MISSA Lunch and Learn 9
-2/12/2019,MISSA Lunch and Learn 10
-6/4/2019,MISSA Lunch and Learn 11
-5/5/2019,MISSA Lunch and Learn 12
-9/18/2019,MISSA General Meeting 1
-10/14/2019,MISSA General Meeting 2
-7/31/2019,MISSA General Meeting 3
-9/25/2019,MISSA General Meeting 4
-10/21/2019,MISSA General Meeting 5
-10/4/2019,MISSA General Meeting 6
-12/13/2018,MISSA General Meeting 7
-12/3/2018,MISSA General Meeting 8
-1/25/2019,MISSA General Meeting 9
-3/4/2019,MISSA General Meeting 10
-9/24/2019,MISSA Banquet
+Dates,Events, Location
+7/17/2019 12:00 PM,MISSA Lunch and Learn 1,Adams 150
+3/9/2019 12:00 PM,MISSA Lunch and Learn 2,Adams 150
+11/2/2019 12:00 PM,MISSA Lunch and Learn 3,Adams 150
+3/30/2019 12:00 PM,MISSA Lunch and Learn 4,Adams 150
+12/22/2018 12:00 PM,MISSA Lunch and Learn 5,Adams 150
+1/15/2019 12:00 PM,MISSA Lunch and Learn 6,Adams 150
+4/19/2019 12:00 PM,MISSA Lunch and Learn 7,Adams 150
+8/30/2019 12:00 PM,MISSA Lunch and Learn 8,Adams 150
+6/6/2019 12:00 PM,MISSA Lunch and Learn 9,Adams 150
+2/12/2019 12:00 PM,MISSA Lunch and Learn 10,Adams 150
+6/4/2019 12:00 PM,MISSA Lunch and Learn 11,Adams 150
+5/5/2019 12:00 PM,MISSA Lunch and Learn 12,Adams 150
+9/18/2019 05:00 PM,MISSA General Meeting 1,Price 2030
+10/14/2019 05:00 PM,MISSA General Meeting 2,Price 2030
+7/31/2019 05:00 PM,MISSA General Meeting 3,Price 2030
+9/25/2019 05:00 PM,MISSA General Meeting 4,Price 2030
+10/21/2019 05:00 PM,MISSA General Meeting 5,Price 2030
+10/4/2019 05:00 PM,MISSA General Meeting 6,Price 2030
+12/13/2018 05:00 PM,MISSA General Meeting 7,Price 2030
+12/3/2018 05:00 PM,MISSA General Meeting 8,Price 2030
+1/25/2019 05:00 PM,MISSA General Meeting 9,Price 2030
+3/4/2019 05:00 PM,MISSA General Meeting 10,Price 2030
+9/24/2019 06:30 PM,MISSA Banquet,Sam Noble Museum
