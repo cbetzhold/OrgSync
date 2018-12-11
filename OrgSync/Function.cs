@@ -26,31 +26,10 @@ namespace OrgSync
         /// <returns></returns>
 
         const string DIRECTORY_PATH = @"C:\Users\cbetzhold97\Documents\Senior Year- OU\Non-Procedural Programming\OrgSync\";
-        string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH + "MISSA_Dates_Events.csv");
-        Events MISSA = ProcessCalendar(calendarLines);
+        private static string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH + "MISSA_Dates_Events.csv");
+        
 
-        private static Events ProcessCalendar(string[] calendarLines)
-        {
-            Events newEvent = new Events();
-
-            for (int i = 1; i < calendarLines.Length; i++)
-            {
-                string line = calendarLines[i].Trim();
-
-                if (line != string.Empty)
-                {
-                    var lineParts = line.Split(',');  // Separate the lines
-
-                    var Dates = Convert.ToDateTime(lineParts[0].Trim());
-                    var Event = lineParts[1].Trim();
-                    var Location = lineParts[2].Trim();
-                    Calendar.Add(new Events(Event, Location, Dates));
-                }
-
-            }
-
-            return newEvent;
-        }
+       
 
         // private static HttpClient httpClient;
         //Dictionary<string, DateTime> EventsDic = new Dictionary<string, DateTime>()
@@ -101,6 +80,7 @@ namespace OrgSync
 
             if (intent.Intent.Name.Equals("OrgSyncIntent"))
             {
+                Events MISSA = ProcessCalendar(calendarLines);
                 var date = intent.Intent.Slots["date"].Value;
 
                 var eventtype = intent.Intent.Slots["event"].Value;
@@ -232,7 +212,7 @@ namespace OrgSync
 
         private SkillResponse BodyResponse(string outputSpeech,
             bool shouldEndSession,
-            string repromptText = "Just say, tell my events to learn more. To exit, say, exit.")
+            string repromptText = "Ask me about your events to begin. To exit, say, exit.")
         {
             var response = new ResponseBody
             {
@@ -251,6 +231,28 @@ namespace OrgSync
                 Version = "1.0"
             };
             return skillResponse;
+        }
+         private static  Events ProcessCalendar(string[] calendarLines)
+        {
+            Events newEvent = new Events();
+
+            for (int i = 1; i < calendarLines.Length; i++)
+            {
+                string line = calendarLines[i].Trim();
+
+                if (line != string.Empty)
+                {
+                    var lineParts = line.Split(',');  // Separate the lines
+
+                    var Dates = Convert.ToDateTime(lineParts[0].Trim());
+                    var Event = lineParts[1].Trim();
+                    var Location = lineParts[2].Trim();
+                    Calendar.Add(new Events(Event, Location, Dates));
+                }
+
+            }
+
+            return newEvent;
         }
     }
 }
