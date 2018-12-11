@@ -86,7 +86,7 @@ namespace OrgSync
 
                 var eventtype = intent.Intent.Slots["event"].Value;
 
-                
+
 
                 if (date == DateTime.Today.ToString("yyyy-MM-dd"))
                 {
@@ -104,72 +104,61 @@ namespace OrgSync
 
 
                 }
-                else
+
+                // Trying to compare the date specified with the current date
+                else if (date == DateTime.Today.Month.ToString())
                 {
-                    outputText = "You do not have an event today";
+                    foreach (var Event in Calendar)
+                    {
+                        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                        if (Event.DayTime.Month.Equals(DateTime.Today.Month))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                    }
                 }
 
-                //if (date == DateTime.Today.Month.ToString())
-                //{
-                //    foreach (var Event in Calendar)
-                //    {
-                //        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                //        if (Event.DayTime.Month.Equals(DateTime.Today.Month))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    outputText = "You do not have an event this month";
-                //}
+                else if (date == "this week")
+                {
+                    foreach (var Event in Calendar)
+                    {
+                        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                        if (Event.DayTime.Date.Equals(DateTime.Today.Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(1).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(2).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(3).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(4).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
 
-                //if (date == "this week")
-                //{
-                //    foreach (var Event in Calendar)
-                //    {
-                //        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(1).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(2).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(3).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(4).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(5).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(6).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
+                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(7).Date))
+                        {
+                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                        }
 
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(5).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(6).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(7).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-
-                //    }
-                //}
-                //else
-                //{
-                //    outputText = "You do not have an event this week";
-                //}
+                    }
+                }
 
 
                 //var eventInfo = await GetInfo(date, eventtype);
