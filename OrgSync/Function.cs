@@ -97,9 +97,12 @@ namespace OrgSync
                         if (Event.DayTime.Date.Equals(DateTime.Today.Date))
                         {
                             outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+
+                            
                         }
                     }
                     outputText = whatsGoingOn;
+                    
 
 
 
@@ -116,8 +119,9 @@ namespace OrgSync
                             outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
                         }
                     }
+                    
                 }
-
+                
                 else if (date == "this week")
                 {
                     foreach (var Event in Calendar)
