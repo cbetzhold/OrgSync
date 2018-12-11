@@ -25,11 +25,11 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        const string DIRECTORY_PATH = @"C:\Users\cbetzhold97\Documents\Senior Year- OU\Non-Procedural Programming\OrgSync\";
-        private static string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH + "MISSA_Dates_Events.csv");
-        
+        //const string DIRECTORY_PATH = @"C:\Users\cbetzhold97\Documents\Senior Year- OU\Non-Procedural Programming\OrgSync\";
+        //private static string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH + "MISSA_Dates_Events.csv");
 
-       
+
+
 
         // private static HttpClient httpClient;
         //Dictionary<string, DateTime> EventsDic = new Dictionary<string, DateTime>()
@@ -45,11 +45,12 @@ namespace OrgSync
 
 
         //List<Events> Calendar = new List<Events>();
-        //private void Form1(object sender, EventArgs e)
-        //{
-        //    Calender.Add(new Events("MIS Lunch and Learn", "Adams 2030", Convert.ToDateTime (12/19/2018)));
+        private void Form1(object sender, EventArgs e)
+        {
+            Calendar.Add(new Events("MIS Lunch and Learn 1", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018)));
+            Calendar.Add(new Events("MIS Lunch and Learn 2", "Adams 2030", Convert.ToDateTime( 12 / 11 / 2018)));
 
-        //}
+        }
 
         //Events Event1 = new Events("MIS Lunch and Learn", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018));
 
@@ -80,26 +81,26 @@ namespace OrgSync
 
             if (intent.Intent.Name.Equals("OrgSyncIntent"))
             {
-                Events MISSA = ProcessCalendar(calendarLines);
+                //Events MISSA = ProcessCalendar(calendarLines);
                 var date = intent.Intent.Slots["date"].Value;
 
                 var eventtype = intent.Intent.Slots["event"].Value;
 
-
+                outputText = "This is your calendar";
 
 
                 if (date == DateTime.Today.ToString("yyyy-MM-dd"))
                 {
-                    // string whatsGoingOn = "";
+                     string whatsGoingOn = "";
                     foreach (var Event in Calendar)
                     {
-                        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                        whatsGoingOn += Events.Equals.eventtype + " on " + Events.Equals.date. + ".";
                         if (Event.DayTime.Date.Equals(DateTime.Today.Date))
                         {
                             outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
                         }
                     }
-                    //  outputText = whatsGoingOn;
+                      outputText = whatsGoingOn;
 
 
 
@@ -109,67 +110,67 @@ namespace OrgSync
                     outputText = "You do not have an event today";
                 }
 
-                if (date == DateTime.Today.Month.ToString())
-                {
-                    foreach (var Event in Calendar)
-                    {
-                        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                        if (Event.DayTime.Month.Equals(DateTime.Today.Month))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                    }
-                }
-                else
-                {
-                    outputText = "You do not have an event this month";
-                }
+                //if (date == DateTime.Today.Month.ToString())
+                //{
+                //    foreach (var Event in Calendar)
+                //    {
+                //        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                //        if (Event.DayTime.Month.Equals(DateTime.Today.Month))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    outputText = "You do not have an event this month";
+                //}
 
-                if (date == "this week")
-                {
-                    foreach (var Event in Calendar)
-                    {
-                        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                        if (Event.DayTime.Date.Equals(DateTime.Today.Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(1).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(2).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(3).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(4).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //if (date == "this week")
+                //{
+                //    foreach (var Event in Calendar)
+                //    {
+                //        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(1).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(2).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(3).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(4).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
 
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(5).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(6).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
-                        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(7).Date))
-                        {
-                            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                        }
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(5).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(6).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
+                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(7).Date))
+                //        {
+                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                //        }
 
-                    }
-                }
-                else
-                {
-                    outputText = "You do not have an event this week";
-                }
+                //    }
+                //}
+                //else
+                //{
+                //    outputText = "You do not have an event this week";
+                //}
 
 
                 //var eventInfo = await GetInfo(date, eventtype);
@@ -232,28 +233,28 @@ namespace OrgSync
             };
             return skillResponse;
         }
-         private static  Events ProcessCalendar(string[] calendarLines)
-        {
-            Events newEvent = new Events();
+        // private static  Events ProcessCalendar(string[] calendarLines)
+        //{
+        //    Events newEvent = new Events();
 
-            for (int i = 1; i < calendarLines.Length; i++)
-            {
-                string line = calendarLines[i].Trim();
+        //    for (int i = 1; i < calendarLines.Length; i++)
+        //    {
+        //        string line = calendarLines[i].Trim();
 
-                if (line != string.Empty)
-                {
-                    var lineParts = line.Split(',');  // Separate the lines
+        //        if (line != string.Empty)
+        //        {
+        //            var lineParts = line.Split(',');  // Separate the lines
 
-                    var Dates = Convert.ToDateTime(lineParts[0].Trim());
-                    var Event = lineParts[1].Trim();
-                    var Location = lineParts[2].Trim();
-                    Calendar.Add(new Events(Event, Location, Dates));
-                }
+        //            var Dates = Convert.ToDateTime(lineParts[0].Trim());
+        //            var Event = lineParts[1].Trim();
+        //            var Location = lineParts[2].Trim();
+        //            Calendar.Add(new Events(Event, Location, Dates));
+        //        }
 
-            }
+        //    }
 
-            return newEvent;
-        }
+        //    return newEvent;
+        //}
     }
 }
 

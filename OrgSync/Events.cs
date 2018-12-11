@@ -17,12 +17,12 @@ namespace OrgSync
 
         }
 
-    public Events(string type, string location, DateTime time)
-    {
-        EventType = type;
-        Location = location;
-        DayTime = time;
-    }
+        public Events(string type, string location, DateTime time)
+        {
+            EventType = type;
+            Location = location;
+            DayTime = time;
+        }
     }
 
 }
