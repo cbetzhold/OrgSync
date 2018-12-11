@@ -87,7 +87,7 @@ namespace OrgSync
                 var eventtype = intent.Intent.Slots["event"].Value;
 
 
-
+                outputText = " output text works";
                 if (date == DateTime.Today.ToString("yyyy-MM-dd"))
                 {
                     string whatsGoingOn = " ";
