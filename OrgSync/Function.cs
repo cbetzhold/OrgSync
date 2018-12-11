@@ -48,7 +48,7 @@ namespace OrgSync
         private void Form1(object sender, EventArgs e)
         {
             Calendar.Add(new Events("MIS Lunch and Learn 1", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018)));
-            Calendar.Add(new Events("MIS Lunch and Learn 2", "Adams 2030", Convert.ToDateTime( 12 / 11 / 2018)));
+            Calendar.Add(new Events("MIS Lunch and Learn 2", "Adams 2030", Convert.ToDateTime(12 / 11 / 2018)));
 
         }
 
@@ -86,21 +86,20 @@ namespace OrgSync
 
                 var eventtype = intent.Intent.Slots["event"].Value;
 
-                outputText = "This is your calendar";
-
+                
 
                 if (date == DateTime.Today.ToString("yyyy-MM-dd"))
                 {
-                     string whatsGoingOn = "";
+                    string whatsGoingOn = " ";
                     foreach (var Event in Calendar)
                     {
-                        whatsGoingOn += Events.Equals.eventtype + " on " + Events.Equals.date. + ".";
+                        whatsGoingOn += Event.EventType + " on " + Event.DayTime + ".";
                         if (Event.DayTime.Date.Equals(DateTime.Today.Date))
                         {
                             outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
                         }
                     }
-                      outputText = whatsGoingOn;
+                    outputText = whatsGoingOn;
 
 
 
