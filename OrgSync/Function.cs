@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Alexa.NET.Request;
@@ -25,45 +27,19 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        //public static string[] calendarLines = System.IO.File.ReadAllLines(@"http://oumisprojects.com/201810/MISSA_Dates_Events.csv");
-
-        //private static HttpClient httpClient;
-
-        //public Function()
-        //{
-        //    httpClient = new HttpClient();
-        //}
-
-
-
-
-        //Dictionary<string, DateTime> EventsDic = new Dictionary<string, DateTime>()
-        //{
-        //    {"MIS Lunch and Learn", DateTime.Today},
-        //    {"Banquet", DateTime.Today.AddDays(1)},
-        //    {"General Meeting 1",DateTime.Today.AddDays(2)},
-        //    {"MIS Lunch and Learn 2",DateTime.Today.AddDays(3)},
-        //    {"General Meeting 3",DateTime.Today.AddDays(4)},
-        //    {"Lunch and Learn 3",DateTime.Today.AddDays(5)},
-        //    {"General Meeting 2",DateTime.Today.AddDays(6)}
-        //};
-
-
-        //List<Events> Calendar = new List<Events>();
-        //private void Form1(object sender, EventArgs e)
-        //{
-        //    Calendar.Add(new Events("MIS Lunch and Learn 1", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018)));
-        //    Calendar.Add(new Events("MIS Lunch and Learn 2", "Adams 2030", Convert.ToDateTime(12 / 11 / 2018)));
-
-        //}
-
-        //Events Event1 = new Events("MIS Lunch and Learn", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018));
-
-
-
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
+            string uri = $"http://oumisprojects.com/201810/MISSA_Dates_Events.csv";
+
+            WebRequest GetURL = WebRequest.Create(uri);
+
+            Stream page = GetURL.GetResponse().GetResponseStream();
+
+            StreamReader sr = new StreamReader(page);
+
+            String csv = sr.ReadToEnd();
+
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -77,10 +53,10 @@ namespace OrgSync
             {
                 //outputText += "Request type is Intent";
                 var intentName = input.Request as IntentRequest;
-                
+
                 if (intent.Intent.Name.Equals("OrgSyncIntent"))
                 {
-                   return BodyResponse( "IntentRequest inside if", false);
+                    return BodyResponse("IntentRequest inside if", false);
                 }
             }
             else
@@ -114,7 +90,7 @@ namespace OrgSync
 
 
 
-               // }
+                // }
 
                 //// Trying to compare the date specified with the current date
                 //else if (date == DateTime.Today.Month.ToString())
@@ -189,7 +165,7 @@ namespace OrgSync
                 //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
                 //}
 
-                
+
 
 
                 return BodyResponse(outputText, false);
@@ -229,50 +205,29 @@ namespace OrgSync
             };
             return skillResponse;
         }
-        //private static Events ProcessCalendar(string[] calendarLines)
-        //{
-        //    Events newEvent = new Events();
+        private static Events ProcessCalendar(string[] calendarLines)
+        {
+            Events newEvent = new Events();
 
-        //    for (int i = 1; i < calendarLines.Length; i++)
-        //    {
-        //        string line = calendarLines[i].Trim();
+            for (int i = 1; i < calendarLines.Length; i++)
+            {
+                string line = calendarLines[i].Trim();
 
-        //        if (line != string.Empty)
-        //        {
-        //            var lineParts = line.Split(',');  // Separate the lines
+                if (line != string.Empty)
+                {
+                    var lineParts = line.Split(',');  // Separate the lines
 
-        //            var Dates = Convert.ToDateTime(lineParts[0].Trim());
-        //            var Event = lineParts[1].Trim();
-        //            var Location = lineParts[2].Trim();
-        //            Calendar.Add(new Events(Event, Location, Dates));
-        //        }
+                    var Dates = Convert.ToDateTime(lineParts[0].Trim());
+                    var Event = lineParts[1].Trim();
+                    var Location = lineParts[2].Trim();
+                    Calendar.Add(new Events(Event, Location, Dates));
+                }
 
-        //    }
+            }
 
-        //    return newEvent;
-        //}
-        //private async Task<Events> GetEventInfo(DateTime Dates, string Events, string Location, ILambdaContext context)
-        //{
-        //    Events MISSAevent = new Events();
-        //    var uri = new Uri($"http://oumisprojects.com/201810/MISSA_Dates_Events.csv");
+            return newEvent;
+        }
 
-        //    try
-        //    {
-        //        //This is the actual GET request
-        //        var response = await httpClient.GetStringAsync(uri);
-        //        context.Logger.LogLine($"Response from URL:\n{response}");
-        //        // TODO: (PMO) Handle bad requests
-        //        //Conver the below from the JSON output into a list of player objects
-        //        MISSAevent = JsonConvert.DeserializeObject<Events>(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        context.Logger.LogLine($"\nException: {ex.Message}");
-        //        context.Logger.LogLine($"\nStack Trace: {ex.StackTrace}");
-        //    }
-
-        //    return MISSAevent;
-        //}
     }
 }
 
