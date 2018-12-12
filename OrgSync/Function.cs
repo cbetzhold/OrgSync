@@ -40,6 +40,8 @@ namespace OrgSync
 
             String csv = sr.ReadToEnd();
 
+            ProcessCalendar(csv);
+            
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -56,7 +58,27 @@ namespace OrgSync
 
                 if (intent.Intent.Name.Equals("OrgSyncIntent"))
                 {
-                    return BodyResponse("IntentRequest inside if", false);
+                    var dateslot = intent.Intent.Slots["dateslot"].Value;
+                    if (dateslot == null)
+                    {
+                        return BodyResponse("I did not understand the date, Please try again.", false);
+                    }
+                    //return BodyResponse(" Meeting outside if ", false);
+
+                    if (dateslot == DateTime.Today.ToString("yyyy-MM-dd"))
+                    {
+                        foreach (Events meeting in Calendar)
+                        {
+                            if (meeting.DayTime == DateTime.Today)
+                            {
+                                return BodyResponse("You have an event", false);
+                            }
+                        }
+
+                        return BodyResponse($"You have a event", false);
+
+                    }
+
                 }
             }
             else
@@ -149,25 +171,7 @@ namespace OrgSync
                 //}
 
 
-                //var eventInfo = await GetEventInfo(Dates, EventTypes, Location, context);
-                //{
-                //    outputText = $"You have a {eventtype} on {date}";
-                //}
-                //slots
-
-                //if (lastName == null)
-                //{
-                //    return BodyResponse("I did not understand the last name of the player you wanted, please try again.", false);
-                //}
-
-                //else if (firstName == null)
-                //{
-                //    return BodyResponse("I did not understand the first name of the player you wanted, please try again.", false);
-                //}
-
-
-
-
+                
                 return BodyResponse(outputText, false);
             }
 
@@ -205,13 +209,14 @@ namespace OrgSync
             };
             return skillResponse;
         }
-        private static Events ProcessCalendar(string[] calendarLines)
+        private static Events ProcessCalendar(string csv)
         {
             Events newEvent = new Events();
+            var eventparts = csv.Split('\n');
 
-            for (int i = 1; i < calendarLines.Length; i++)
+            for (int i = 1; i < eventparts.Length; i++)
             {
-                string line = calendarLines[i].Trim();
+                string line = eventparts[i].Trim();
 
                 if (line != string.Empty)
                 {
