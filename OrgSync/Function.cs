@@ -25,12 +25,18 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        string[] calendarLines = System.IO.File.ReadAllLines(@"http://oumisprojects.com/201810/MISSA_Dates_Events.csv");
+        //public static string[] calendarLines = System.IO.File.ReadAllLines(@"http://oumisprojects.com/201810/MISSA_Dates_Events.csv");
+
+        private static HttpClient httpClient;
+
+        public Function()
+        {
+            httpClient = new HttpClient();
+        }
 
 
 
 
-        // private static HttpClient httpClient;
         //Dictionary<string, DateTime> EventsDic = new Dictionary<string, DateTime>()
         //{
         //    {"MIS Lunch and Learn", DateTime.Today},
@@ -245,6 +251,28 @@ namespace OrgSync
             }
 
             return newEvent;
+        }
+        private async Task<Events> GetEventInfo(DateTime Dates, string Events, string Location, ILambdaContext context)
+        {
+            Events MISSAevent = new Events();
+            var uri = new Uri($"http://oumisprojects.com/201810/MISSA_Dates_Events.csv");
+
+            try
+            {
+                //This is the actual GET request
+                var response = await httpClient.GetStringAsync(uri);
+                context.Logger.LogLine($"Response from URL:\n{response}");
+                // TODO: (PMO) Handle bad requests
+                //Conver the below from the JSON output into a list of player objects
+                MISSAevent = JsonConvert.DeserializeObject<Events>(response);
+            }
+            catch (Exception ex)
+            {
+                context.Logger.LogLine($"\nException: {ex.Message}");
+                context.Logger.LogLine($"\nStack Trace: {ex.StackTrace}");
+            }
+
+            return MISSAevent;
         }
     }
 }
