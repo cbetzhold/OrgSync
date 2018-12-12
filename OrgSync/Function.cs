@@ -25,8 +25,8 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        //const string DIRECTORY_PATH = @"C:\Users\cbetzhold97\Documents\Senior Year- OU\Non-Procedural Programming\OrgSync\";
-        //private static string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH + "MISSA_Dates_Events.csv");
+        const string DIRECTORY_PATH = @"http://oumisprojects.com/201810/MISSA_Dates_Events.csv";
+        private static string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH);
 
 
 
@@ -45,12 +45,12 @@ namespace OrgSync
 
 
         //List<Events> Calendar = new List<Events>();
-        private void Form1(object sender, EventArgs e)
-        {
-            Calendar.Add(new Events("MIS Lunch and Learn 1", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018)));
-            Calendar.Add(new Events("MIS Lunch and Learn 2", "Adams 2030", Convert.ToDateTime(12 / 11 / 2018)));
+        //private void Form1(object sender, EventArgs e)
+        //{
+        //    Calendar.Add(new Events("MIS Lunch and Learn 1", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018)));
+        //    Calendar.Add(new Events("MIS Lunch and Learn 2", "Adams 2030", Convert.ToDateTime(12 / 11 / 2018)));
 
-        }
+        //}
 
         //Events Event1 = new Events("MIS Lunch and Learn", "Adams 2030", Convert.ToDateTime(12 / 19 / 2018));
 
@@ -225,28 +225,28 @@ namespace OrgSync
             };
             return skillResponse;
         }
-        // private static  Events ProcessCalendar(string[] calendarLines)
-        //{
-        //    Events newEvent = new Events();
+        private static Events ProcessCalendar(string[] calendarLines)
+        {
+            Events newEvent = new Events();
 
-        //    for (int i = 1; i < calendarLines.Length; i++)
-        //    {
-        //        string line = calendarLines[i].Trim();
+            for (int i = 1; i < calendarLines.Length; i++)
+            {
+                string line = calendarLines[i].Trim();
 
-        //        if (line != string.Empty)
-        //        {
-        //            var lineParts = line.Split(',');  // Separate the lines
+                if (line != string.Empty)
+                {
+                    var lineParts = line.Split(',');  // Separate the lines
 
-        //            var Dates = Convert.ToDateTime(lineParts[0].Trim());
-        //            var Event = lineParts[1].Trim();
-        //            var Location = lineParts[2].Trim();
-        //            Calendar.Add(new Events(Event, Location, Dates));
-        //        }
+                    var Dates = Convert.ToDateTime(lineParts[0].Trim());
+                    var Event = lineParts[1].Trim();
+                    var Location = lineParts[2].Trim();
+                    Calendar.Add(new Events(Event, Location, Dates));
+                }
 
-        //    }
+            }
 
-        //    return newEvent;
-        //}
+            return newEvent;
+        }
     }
 }
 
