@@ -25,8 +25,7 @@ namespace OrgSync
         /// <param name="context"></param>
         /// <returns></returns>
 
-        const string DIRECTORY_PATH = @"http://oumisprojects.com/201810/MISSA_Dates_Events.csv";
-        private static string[] calendarLines = System.IO.File.ReadAllLines(DIRECTORY_PATH);
+        string[] calendarLines = System.IO.File.ReadAllLines(@"http://oumisprojects.com/201810/MISSA_Dates_Events.csv");
 
 
 
@@ -98,11 +97,11 @@ namespace OrgSync
                         {
                             outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
 
-                            
+
                         }
                     }
                     outputText = whatsGoingOn;
-                    
+
 
 
 
@@ -119,9 +118,9 @@ namespace OrgSync
                             outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
                         }
                     }
-                    
+
                 }
-                
+
                 else if (date == "this week")
                 {
                     foreach (var Event in Calendar)
@@ -254,10 +253,15 @@ namespace OrgSync
 
 
 
-//public class GetInfo(DateTime, string)
-//    {
 
-//    }
+
+
+
+
+
+
+
+
 
 
 
