@@ -114,7 +114,7 @@ namespace OrgSync
                             //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
                             if (meeting.DayTime.Month.Equals(Convert.ToDateTime(dateslot).Month))
                             {
-                                outputText = $"On {meeting.DayTime.Date}, you have {meeting.EventType} in {meeting.Location}.";
+                                outputText = $"On {meeting.DayTime.ToString("MMMM dd, yyyy")} at {meeting.DayTime.ToString("hh:mm tt")}, you have {meeting.EventType} in {meeting.Location}.";
                                 break;
                             }
                             else if (meeting.DayTime.Month != Convert.ToDateTime(dateslot).Month)
