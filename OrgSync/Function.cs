@@ -126,19 +126,20 @@ namespace OrgSync
                     {
                         foreach (Events meeting in Calendar)
                         {
-                            //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                            if (meeting.DayTime.Month.Equals(Convert.ToDateTime(dateslot).Month))
+                            if (meeting.DayTime.Date.ToString("yyyy-MM") == dateslot)
                             {
-                                outputText = $"On {meeting.DayTime.Date}, at {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                                outputText = $"Yes. Your next event in {meeting.DayTime.Date.Month.ToString("MM")} on {meeting.DayTime.Date}, you have a {meeting.EventType} in {meeting.Location}";
+                                break;
                             }
-                            else if (meeting.DayTime.Month != Convert.ToDateTime(dateslot).Month)
+                            else if (meeting.DayTime.Date.ToString("yyyy-MM") != dateslot)
                             {
-                                outputText = "You do not have any meetings next month.";
+                                outputText = "You do not have any meetings next month. "+ meeting.DayTime.Date.ToString("yyyy-MM") + "and" + dateslot;
                             }
                         }
 
                         return BodyResponse(outputText, false);
                     }
+
                     //This should be last else if before else
                     else if (dateslot != null)
                     {
@@ -180,21 +181,7 @@ namespace OrgSync
                 var eventtype = intent.Intent.Slots["event"].Value;
 
 
-                outputText = $"For the month of December 2018 the only events are {eventtype} on {date}";
-                //if (date == DateTime.Today.ToString("yyyy-MM-dd"))
-                //{
-                //    string whatsGoingOn = " ";
-                //    foreach (var Event in Calendar)
-                //    {
-                //        whatsGoingOn += Event.EventType + " on " + Event.DayTime + ".";
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-
-
-                //        }
-                //    }
-                //    outputText = whatsGoingOn;
+                
 
 
 
