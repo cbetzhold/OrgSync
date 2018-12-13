@@ -74,13 +74,13 @@ namespace OrgSync
                         {
                             if (meeting.DayTime.Date == DateTime.Today.Date)
                             {
-                                outputText= $"Today at {meeting.DayTime.TimeOfDay} in {meeting.Location}, you have {meeting.EventType}";
+                                outputText= $"Today at {meeting.DayTime.ToString("hh:mm tt")} in {meeting.Location}, you have {meeting.EventType}.";
                                 break;
                             }
                             else
                             {
 
-                                outputText= "You do not have an event today";
+                                outputText= "You do not have an event today.";
                             }
                         }
                         
@@ -94,13 +94,13 @@ namespace OrgSync
                         {
                             if (meeting.DayTime == DateTime.Today.AddDays(1))
                             {
-                                outputText= $"Tomorrow at {meeting.DayTime.TimeOfDay} in {meeting.Location}, you have {meeting.EventType}";
+                                outputText= $"Tomorrow at {meeting.DayTime.ToString("hh:mm tt")} in {meeting.Location}, you have {meeting.EventType}.";
                                 break;
                             }
                             else
                             {
 
-                                outputText= "You do not have an event tomorrow";
+                                outputText= "You do not have an event tomorrow.";
                             }
                         }
                         return BodyResponse(outputText, false);
@@ -114,7 +114,7 @@ namespace OrgSync
                             //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
                             if (meeting.DayTime.Month.Equals(Convert.ToDateTime(dateslot).Month))
                             {
-                                outputText = $"On {meeting.DayTime.Date}, you have {meeting.EventType} in {meeting.Location}";
+                                outputText = $"On {meeting.DayTime.Date}, you have {meeting.EventType} in {meeting.Location}.";
                                 break;
                             }
                             else if (meeting.DayTime.Month != Convert.ToDateTime(dateslot).Month)
@@ -131,7 +131,7 @@ namespace OrgSync
                         {
                             if (meeting.DayTime.Date.ToString("yyyy-MM") == dateslot)
                             {
-                                outputText = $"Your next event in {meeting.DayTime.Date.Month} on {meeting.DayTime.Date}, you have {meeting.EventType} in {meeting.Location}";
+                                outputText = $"Your next event in {meeting.DayTime.ToString("MMMM")}  is on {meeting.DayTime.Date}. You have {meeting.EventType} in {meeting.Location}.";
                                 break;
                             }
                             else if (meeting.DayTime.Date.ToString("yyyy-MM") != dateslot)
@@ -152,7 +152,7 @@ namespace OrgSync
 
                             if (meeting.DayTime.Date.Equals(Convert.ToDateTime(dateslot).Date))
                             {
-                                outputText = $"At {meeting.DayTime.TimeOfDay}, you have {meeting.EventType} in {meeting.Location}";
+                                outputText = $"On {meeting.DayTime.ToString("MMMM dd, yyyy")} at {meeting.DayTime.ToString("hh:mm tt")}, you have {meeting.EventType} in {meeting.Location}.";
                                 break;
                             }
                             else if (meeting.DayTime.Date != Convert.ToDateTime(dateslot).Date)
@@ -167,7 +167,7 @@ namespace OrgSync
                     else
                     {
 
-                        return BodyResponse("Please specify a date you would like to hear about. " + dateslot.GetType(), false);
+                        return BodyResponse("Please specify a date you would like to hear about. ", false);
                     }
                 }
             }
