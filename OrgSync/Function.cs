@@ -69,7 +69,7 @@ namespace OrgSync
                     {
                         foreach (Events meeting in Calendar)
                         {
-                            if (meeting.DayTime == DateTime.Today)
+                            if (meeting.DayTime.Date == DateTime.Today.Date)
                             {
                                 return BodyResponse("You have an event today", false);
                             }
@@ -112,6 +112,43 @@ namespace OrgSync
                             }
                         }
 
+                    }
+                    //This should be last else if before else
+                    else if ( dateslot != null)
+                    {
+                        foreach (Events meeting in Calendar)
+                        {
+
+                            for (int i = 1; i < Calendar.Count; i++)
+                            {
+                                return BodyResponse("inside for loop" + Calendar.Count, false);
+                                if (Calendar[i].DayTime.Date.Equals(Convert.ToDateTime(dateslot).Date))
+                                {
+                                    //outputText += "Event:" + Calendar[i].DayTime;
+                                }
+
+                                
+
+                            }
+                            //if (outputText== "")
+                            //{
+                            //    return BodyResponse($"You do not have an event on {dateslot}", false);
+                            //}
+                            //if (meeting.DayTime.Date == Convert.ToDateTime(dateslot).Date)
+                            //{
+                            //    return BodyResponse($"You have an event on {dateslot} ", false);
+                            //}
+                            //else
+                            //{
+                            //    return BodyResponse($"1.{meeting.DayTime.Date} and 2. {Convert.ToDateTime(dateslot).Date}", false);
+                            //}
+
+                        }
+                    }
+                    else
+                    {
+
+                        return BodyResponse("Please specify a date you would like to hear about. " + dateslot.GetType(), false);
                     }
                 }
             }
