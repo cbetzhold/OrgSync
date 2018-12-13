@@ -18,7 +18,9 @@ namespace OrgSync
 {
     public class Function
     {
+
         private static List<Events> Calendar = new List<Events>();
+
 
         /// <summary>
         /// A simple function that takes a string and does a ToUpper
@@ -26,6 +28,7 @@ namespace OrgSync
         /// <param name="input"></param>
         /// <param name="context"></param>
         /// <returns></returns>
+
 
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
@@ -81,6 +84,7 @@ namespace OrgSync
                         }
 
 
+
                     }
                     else if (dateslot == DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"))
                     {
@@ -100,18 +104,40 @@ namespace OrgSync
 
                     }
 
-
-                    else if (dateslot == DateTime.Today.Month.ToString())
+                    else if (Convert.ToDateTime(dateslot).Month == DateTime.Today.Month)
                     {
-                        foreach (var Event in Calendar)
+                        foreach (Events meeting in Calendar)
                         {
                             //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                            if (Event.DayTime.Month.Equals(DateTime.Today.Month))
+                            if (meeting.DayTime.Month.Equals(Convert.ToDateTime(dateslot).Month))
                             {
-                                outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                                outputText = $"On {meeting.DayTime.Date}, at {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                                break;
+                            }
+                            else if (meeting.DayTime.Month != Convert.ToDateTime(dateslot).Month)
+                            {
+                                outputText = "You do not have any meetings this month.";
                             }
                         }
 
+                        return BodyResponse(outputText, false);
+                    }
+                    else if (Convert.ToDateTime(dateslot).Month == DateTime.Today.AddMonths(1).Month)
+                    {
+                        foreach (Events meeting in Calendar)
+                        {
+                            //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                            if (meeting.DayTime.Month.Equals(Convert.ToDateTime(dateslot).Month))
+                            {
+                                outputText = $"On {meeting.DayTime.Date}, at {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                            }
+                            else if (meeting.DayTime.Month != Convert.ToDateTime(dateslot).Month)
+                            {
+                                outputText = "You do not have any meetings next month.";
+                            }
+                        }
+
+                        return BodyResponse(outputText, false);
                     }
                     //This should be last else if before else
                     else if (dateslot != null)
@@ -120,31 +146,16 @@ namespace OrgSync
                         foreach (Events meeting in Calendar)
                         {
 
-
                             if (meeting.DayTime.Date.Equals(Convert.ToDateTime(dateslot).Date))
                             {
-                                outputText += $"Yes. At {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                                outputText = $"Yes. At {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                                break;
                             }
-                            //else
-                            //{
-                            //    outputText = "You do not have an event today.";
-                            //}
+                            else if (meeting.DayTime.Date != Convert.ToDateTime(dateslot).Date)
+                            {
+                                outputText = "You do not have an event today.";
+                            }
 
-
-
-
-                            //if (outputText== "")
-                            //{
-                            //    return BodyResponse($"You do not have an event on {dateslot}", false);
-                            //}
-                            //if (meeting.DayTime.Date == Convert.ToDateTime(dateslot).Date)
-                            //{
-                            //    return BodyResponse($"You have an event on {dateslot} ", false);
-                            //}
-                            //else
-                            //{
-                            //    return BodyResponse($"1.{meeting.DayTime.Date} and 2. {Convert.ToDateTime(dateslot).Date}", false);
-                            //}
 
                         }
                         return BodyResponse(outputText, false);
@@ -298,6 +309,7 @@ namespace OrgSync
         }
 
     }
+
 }
 
 
