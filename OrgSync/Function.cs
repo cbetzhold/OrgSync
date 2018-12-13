@@ -114,22 +114,25 @@ namespace OrgSync
 
                     }
                     //This should be last else if before else
-                    else if ( dateslot != null)
+                    else if (dateslot != null)
                     {
+
                         foreach (Events meeting in Calendar)
                         {
 
-                            for (int i = 1; i < Calendar.Count; i++)
+
+                            if (meeting.DayTime.Date.Equals(Convert.ToDateTime(dateslot).Date))
                             {
-                                return BodyResponse("inside for loop" + Calendar.Count, false);
-                                if (Calendar[i].DayTime.Date.Equals(Convert.ToDateTime(dateslot).Date))
-                                {
-                                    //outputText += "Event:" + Calendar[i].DayTime;
-                                }
-
-                                
-
+                                outputText += $"Yes. At {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
                             }
+                            //else
+                            //{
+                            //    outputText = "You do not have an event today.";
+                            //}
+
+
+
+
                             //if (outputText== "")
                             //{
                             //    return BodyResponse($"You do not have an event on {dateslot}", false);
@@ -144,6 +147,7 @@ namespace OrgSync
                             //}
 
                         }
+                        return BodyResponse(outputText, false);
                     }
                     else
                     {
