@@ -74,15 +74,17 @@ namespace OrgSync
                         {
                             if (meeting.DayTime.Date == DateTime.Today.Date)
                             {
-                                return BodyResponse("You have an event today", false);
+                                outputText= $"Today at {meeting.DayTime.TimeOfDay} in {meeting.Location}, you have {meeting.EventType}";
+                                break;
                             }
                             else
                             {
 
-                                return BodyResponse($"You do not have an event today", false);
+                                outputText= "You do not have an event today";
                             }
                         }
-
+                        
+                        return BodyResponse(outputText, false);
 
 
                     }
@@ -92,15 +94,16 @@ namespace OrgSync
                         {
                             if (meeting.DayTime == DateTime.Today.AddDays(1))
                             {
-                                return BodyResponse("You have an event tommorrow", false);
+                                outputText= $"Tomorrow at {meeting.DayTime.TimeOfDay} in {meeting.Location}, you have {meeting.EventType}";
+                                break;
                             }
                             else
                             {
 
-                                return BodyResponse($"You do not have an event tomorrow", false);
+                                outputText= "You do not have an event tomorrow";
                             }
                         }
-
+                        return BodyResponse(outputText, false);
 
                     }
 
@@ -111,7 +114,7 @@ namespace OrgSync
                             //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
                             if (meeting.DayTime.Month.Equals(Convert.ToDateTime(dateslot).Month))
                             {
-                                outputText = $"On {meeting.DayTime.Date}, at {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                                outputText = $"On {meeting.DayTime.Date}, you have a {meeting.EventType} in {meeting.Location}";
                                 break;
                             }
                             else if (meeting.DayTime.Month != Convert.ToDateTime(dateslot).Month)
@@ -128,12 +131,12 @@ namespace OrgSync
                         {
                             if (meeting.DayTime.Date.ToString("yyyy-MM") == dateslot)
                             {
-                                outputText = $"Yes. Your next event in {meeting.DayTime.Date.Month.ToString("MM")} on {meeting.DayTime.Date}, you have a {meeting.EventType} in {meeting.Location}";
+                                outputText = $"Your next event in {meeting.DayTime.Date.Month} on {meeting.DayTime.Date}, you have a {meeting.EventType} in {meeting.Location}";
                                 break;
                             }
                             else if (meeting.DayTime.Date.ToString("yyyy-MM") != dateslot)
                             {
-                                outputText = "You do not have any meetings next month. "+ meeting.DayTime.Date.ToString("yyyy-MM") + "and" + dateslot;
+                                outputText = "You do not have any meetings next month. ";
                             }
                         }
 
@@ -149,7 +152,7 @@ namespace OrgSync
 
                             if (meeting.DayTime.Date.Equals(Convert.ToDateTime(dateslot).Date))
                             {
-                                outputText = $"Yes. At {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
+                                outputText = $"At {meeting.DayTime.TimeOfDay}, you have a {meeting.EventType} in {meeting.Location}";
                                 break;
                             }
                             else if (meeting.DayTime.Date != Convert.ToDateTime(dateslot).Date)
