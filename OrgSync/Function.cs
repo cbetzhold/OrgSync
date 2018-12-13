@@ -176,69 +176,7 @@ namespace OrgSync
                 return BodyResponse("I did not understand your request, please try again", true);
             }
 
-            if (intent.Intent.Name.Equals("OrgSyncIntent"))
-            {
-                //Events MISSA = ProcessCalendar(calendarLines);
-                var date = intent.Intent.Slots["date"].Value;
-
-                var eventtype = intent.Intent.Slots["event"].Value;
-
-
-                
-
-
-
-
-                // }
-
-                //// Trying to compare the date specified with the current date
-
-                //else if (date == "this week")
-                //{
-                //    foreach (var Event in Calendar)
-                //    {
-                //        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(1).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(2).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(3).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(4).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(5).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(6).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //        if (Event.DayTime.Date.Equals(DateTime.Today.AddDays(7).Date))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-
-                //    }
-                //}
-
-
-
-                return BodyResponse(outputText, false);
-            }
+        
 
             else if (intent.Intent.Name.Equals("AMAZON.StopIntent"))
             {
