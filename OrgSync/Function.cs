@@ -41,7 +41,7 @@ namespace OrgSync
             String csv = sr.ReadToEnd();
 
             ProcessCalendar(csv);
-            
+
             string outputText = "";
             var requestType = input.GetRequestType();
             var intent = input.Request as IntentRequest;
@@ -65,20 +65,54 @@ namespace OrgSync
                     }
                     //return BodyResponse(" Meeting outside if ", false);
 
-                    if (dateslot == DateTime.Today.ToString("yyyy-MM-dd"))
+                    else if (dateslot == DateTime.Today.ToString("yyyy-MM-dd"))
                     {
                         foreach (Events meeting in Calendar)
                         {
                             if (meeting.DayTime == DateTime.Today)
                             {
-                                return BodyResponse("You have an event", false);
+                                return BodyResponse("You have an event today", false);
+                            }
+                            else
+                            {
+
+                                return BodyResponse($"You do not have an event today", false);
                             }
                         }
 
-                        return BodyResponse($"You have a event", false);
+
+                    }
+                    else if (dateslot == DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"))
+                    {
+                        foreach (Events meeting in Calendar)
+                        {
+                            if (meeting.DayTime == DateTime.Today.AddDays(1))
+                            {
+                                return BodyResponse("You have an event tommorrow", false);
+                            }
+                            else
+                            {
+
+                                return BodyResponse($"You do not have an event tomorrow", false);
+                            }
+                        }
+
 
                     }
 
+
+                    else if (dateslot == DateTime.Today.Month.ToString())
+                    {
+                        foreach (var Event in Calendar)
+                        {
+                            //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
+                            if (Event.DayTime.Month.Equals(DateTime.Today.Month))
+                            {
+                                outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
+                            }
+                        }
+
+                    }
                 }
             }
             else
@@ -93,7 +127,8 @@ namespace OrgSync
 
                 var eventtype = intent.Intent.Slots["event"].Value;
 
-                outputText = " output text works";
+
+                outputText = $"For the month of December 2018 the only events are {eventtype} on {date}";
                 //if (date == DateTime.Today.ToString("yyyy-MM-dd"))
                 //{
                 //    string whatsGoingOn = " ";
@@ -115,18 +150,6 @@ namespace OrgSync
                 // }
 
                 //// Trying to compare the date specified with the current date
-                //else if (date == DateTime.Today.Month.ToString())
-                //{
-                //    foreach (var Event in Calendar)
-                //    {
-                //        //whatsGoingOn += Event.Key + " on " + Event.Value.ToString() + ".";
-                //        if (Event.DayTime.Month.Equals(DateTime.Today.Month))
-                //        {
-                //            outputText += "You have " + Event.EventType + "located at " + Event.Location + " on " + Event.DayTime;
-                //        }
-                //    }
-
-                //}
 
                 //else if (date == "this week")
                 //{
@@ -171,7 +194,7 @@ namespace OrgSync
                 //}
 
 
-                
+
                 return BodyResponse(outputText, false);
             }
 
